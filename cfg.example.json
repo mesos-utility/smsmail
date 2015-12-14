@@ -1,0 +1,15 @@
+{
+    "debug": true,
+    "http": {
+        "enable": true,
+        "listen": "0.0.0.0:1986"
+    },
+    "mail" : {
+        "enable": true,
+        "url" : "10.10.10.10:25"
+    },
+    "sms" : {
+        "enable": true,
+        "url" : "10.10.10.10:20230"
+    }
+}
