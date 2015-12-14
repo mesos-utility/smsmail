@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"net/smtp"
 
-	"github.com/niean/smsmail/g"
+	"github.com/soarpenguin/smsmail/g"
 )
 
 type Dto struct {

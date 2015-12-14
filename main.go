@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/niean/smsmail/g"
-	"github.com/niean/smsmail/http"
+	"github.com/soarpenguin/smsmail/g"
+	"github.com/soarpenguin/smsmail/http"
 )
 
 func main() {

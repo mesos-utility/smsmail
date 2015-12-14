@@ -5,7 +5,7 @@ import (
 	"github.com/toolkits/file"
 	"net/http"
 
-	"github.com/niean/smsmail/g"
+	"github.com/soarpenguin/smsmail/g"
 )
 
 func configCommonRoutes() {
