@@ -90,9 +90,22 @@ func SmsMessageDeal(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	msg := r.URL.Query().Get("content")
-	tos := r.URL.Query().Get("tos")
+	var msg, tos string
 	var errMsg string
+	r.ParseForm()
+	if len(r.Form["content"]) > 0 {
+		msg = r.Form["content"][0]
+	}
+	if len(r.Form["tos"]) > 0 {
+		tos = r.Form["tos"][0]
+	}
+
+	switch {
+	case len(msg) == 0:
+		errMsg = "content must not be null."
+	case len(tos) == 0:
+		errMsg = "tos must not be null."
+	}
 
 	switch {
 	case len(msg) == 0:
@@ -142,10 +155,18 @@ func MailMessageDeal(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	msg := r.URL.Query().Get("content")
-	subject := r.URL.Query().Get("subject")
-	tos := r.URL.Query().Get("tos")
+	var msg, subject, tos string
 	var errMsg string
+	r.ParseForm()
+	if len(r.Form["content"]) > 0 {
+		msg = r.Form["content"][0]
+	}
+	if len(r.Form["subject"]) > 0 {
+		subject = r.Form["subject"][0]
+	}
+	if len(r.Form["tos"]) > 0 {
+		tos = r.Form["tos"][0]
+	}
 
 	switch {
 	case len(msg) == 0:
