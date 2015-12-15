@@ -126,10 +126,10 @@ func SmsMessageDeal(w http.ResponseWriter, r *http.Request) {
 	} else {
 		fmt.Fprintf(&content, "m:%s c:%s", tos, msg)
 		fmt.Fprintf(&buf, "s:%04d %s", content.Len(), content.String())
-		log.Println("message: %s", buf.String())
+		log.Printf("message: %s\n", buf.String())
 
 		if _, err = buf.WriteTo(conn); err != nil {
-			log.Println("Error: %s", err)
+			log.Printf("Error: %s\n", err)
 			RenderMsgJson(w, err.Error())
 		} else {
 			log.Println("Send message success.")
