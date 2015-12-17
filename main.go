@@ -12,18 +12,11 @@ import (
 func main() {
 	cfg := flag.String("c", "cfg.json", "configuration file")
 	version := flag.Bool("v", false, "show version")
-	versionGit := flag.Bool("vg", false, "show version")
+	help := flag.Bool("h", false, "help")
 	flag.Parse()
 
-	if *version {
-		fmt.Println(g.VERSION)
-		os.Exit(0)
-	}
-
-	if *versionGit {
-		fmt.Println(g.VERSION, g.COMMIT)
-		os.Exit(0)
-	}
+	handleVersion(*version)
+	handleHelp(*help)
 
 	// global config
 	g.ParseConfig(*cfg)
@@ -32,4 +25,18 @@ func main() {
 	http.Start()
 
 	select {}
+}
+
+func handleVersion(displayVersion bool) {
+	if displayVersion {
+		fmt.Println(g.VERSION)
+		os.Exit(0)
+	}
+}
+
+func handleHelp(displayHelp bool) {
+	if displayHelp {
+		flag.Usage()
+		os.Exit(0)
+	}
 }
