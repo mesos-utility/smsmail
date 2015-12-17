@@ -30,6 +30,6 @@ func configCommonRoutes() {
 	})
 
 	http.HandleFunc("/mail", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("mail\n"))
+		MailMessageDeal(w, r)
 	})
 }

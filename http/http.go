@@ -7,9 +7,11 @@ import (
 	"log"
 	"net"
 	"net/http"
-	"net/smtp"
+	"strings"
 
 	"github.com/soarpenguin/smsmail/g"
+	"github.com/toolkits/smtp"
+	"github.com/toolkits/web/param"
 )
 
 type Dto struct {
@@ -75,16 +77,17 @@ func AutoRender(w http.ResponseWriter, data interface{}, err error) {
 }
 
 func SmsMessageDeal(w http.ResponseWriter, r *http.Request) {
-	if !g.Config().Sms.Enable {
-		if g.Config().Debug {
+	cfg := g.Config()
+	if !cfg.Sms.Enable {
+		if cfg.Debug {
 			log.Println("Sms not enable...")
 		}
 		return
 	}
 
-	addr := g.Config().Sms.Url
+	addr := cfg.Sms.Url
 	if addr == "" {
-		if g.Config().Debug {
+		if cfg.Debug {
 			log.Println("Sms Url is null...")
 		}
 		return
@@ -98,13 +101,6 @@ func SmsMessageDeal(w http.ResponseWriter, r *http.Request) {
 	}
 	if len(r.Form["tos"]) > 0 {
 		tos = r.Form["tos"][0]
-	}
-
-	switch {
-	case len(msg) == 0:
-		errMsg = "content must not be null."
-	case len(tos) == 0:
-		errMsg = "tos must not be null."
 	}
 
 	switch {
@@ -140,72 +136,32 @@ func SmsMessageDeal(w http.ResponseWriter, r *http.Request) {
 }
 
 func MailMessageDeal(w http.ResponseWriter, r *http.Request) {
-	if !g.Config().Mail.Enable {
-		if g.Config().Debug {
+	cfg := g.Config()
+	if !cfg.Mail.Enable {
+		if cfg.Debug {
 			log.Println("Mail not enable...")
 		}
 		return
 	}
 
-	addr := g.Config().Mail.Url
+	addr := cfg.Mail.Addr
 	if addr == "" {
-		if g.Config().Debug {
-			log.Println("Mail Url is null...")
+		if cfg.Debug {
+			log.Println("Mail Addr is null...")
 		}
 		return
 	}
 
-	var msg, subject, tos string
-	var errMsg string
-	r.ParseForm()
-	if len(r.Form["content"]) > 0 {
-		msg = r.Form["content"][0]
-	}
-	if len(r.Form["subject"]) > 0 {
-		subject = r.Form["subject"][0]
-	}
-	if len(r.Form["tos"]) > 0 {
-		tos = r.Form["tos"][0]
-	}
+	tos := param.MustString(r, "tos")
+	subject := param.MustString(r, "subject")
+	content := param.MustString(r, "content")
+	tos = strings.Replace(tos, ",", ";", -1)
 
-	switch {
-	case len(msg) == 0:
-		errMsg = "content must not be null."
-	case len(tos) == 0:
-		errMsg = "tos must not be null."
-	case len(subject) == 0:
-		errMsg = "subject must not be null."
-	}
-
-	if len(errMsg) != 0 {
-		RenderMsgJson(w, errMsg)
-		return
-	}
-
-	// Connect to the remote SMTP server.
-	c, err := smtp.Dial(addr)
+	s := smtp.New(cfg.Mail.Addr, cfg.Mail.Username, cfg.Mail.Password)
+	err := s.SendMail(cfg.Mail.From, tos, subject, content)
 	if err != nil {
-		RenderMsgJson(w, err.Error())
-		return
-	}
-	defer c.Close()
-
-	// Set the sender and recipient.
-	c.Mail("zhuyefeng@youku.com")
-	c.Rcpt(tos)
-	// Send the email body.
-	wc, err := c.Data()
-	if err != nil {
-		RenderMsgJson(w, err.Error())
-		return
-	}
-	defer wc.Close()
-
-	buf := bytes.NewBufferString(msg)
-	if _, err = buf.WriteTo(wc); err != nil {
-		RenderMsgJson(w, err.Error())
-		return
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 	} else {
-		RenderDataJson(w, buf.String())
+		http.Error(w, "success", http.StatusOK)
 	}
 }

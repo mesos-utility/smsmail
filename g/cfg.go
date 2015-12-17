@@ -13,8 +13,11 @@ type HttpConfig struct {
 }
 
 type MailConfig struct {
-	Enable bool   `json:"enable"`
-	Url    string `json:"url"`
+	Enable   bool   `json:"enable"`
+	Addr     string `json:"addr"`
+	Username string `json:"username"`
+	Password string `json:"password"`
+	From     string `json:"from"`
 }
 
 type SmsConfig struct {

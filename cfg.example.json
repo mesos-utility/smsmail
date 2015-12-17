@@ -6,7 +6,10 @@
     },
     "mail" : {
         "enable": true,
-        "url" : "10.10.10.10:25"
+        "addr" : "10.10.10.10:25",
+        "username": "mail@example.com",
+        "password": "123456",
+        "from": "mail@example.com"
     },
     "sms" : {
         "enable": true,
