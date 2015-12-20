@@ -12,11 +12,9 @@ import (
 func main() {
 	cfg := flag.String("c", "cfg.json", "configuration file")
 	version := flag.Bool("v", false, "show version")
-	help := flag.Bool("h", false, "help")
 	flag.Parse()
 
 	handleVersion(*version)
-	handleHelp(*help)
 
 	// global config
 	g.ParseConfig(*cfg)
