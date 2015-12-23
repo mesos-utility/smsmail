@@ -45,6 +45,13 @@ func startHttpServer() {
 	log.Fatalln(s.ListenAndServe())
 }
 
+// WriteJSON writes the value v to the http response stream as json with standard json encoding.
+func WriteJSON(w http.ResponseWriter, code int, v interface{}) error {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(code)
+	return json.NewEncoder(w).Encode(v)
+}
+
 func RenderJson(w http.ResponseWriter, v interface{}) {
 	bs, err := json.Marshal(v)
 	if err != nil {
