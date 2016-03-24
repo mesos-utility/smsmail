@@ -27,6 +27,7 @@ func configCommonRoutes() {
 
 	http.HandleFunc("/sms", func(w http.ResponseWriter, r *http.Request) {
 		SmsMessageDeal(w, r)
+		WeixinMessageDeal(w, r)
 	})
 
 	http.HandleFunc("/mail", func(w http.ResponseWriter, r *http.Request) {

@@ -25,11 +25,19 @@ type SmsConfig struct {
 	Url    string `json:"url"`
 }
 
+type WeixinConfig struct {
+	Enable bool   `json:"enable"`
+	Url    string `json:"url"`
+	CorpID string `json:"corpid"`
+	Secret string `json:"secret"`
+}
+
 type GlobalConfig struct {
-	Debug bool        `json:"debug"`
-	Http  *HttpConfig `json:"http"`
-	Mail  *MailConfig `json:"mail"`
-	Sms   *SmsConfig  `json:"sms"`
+	Debug  bool          `json:"debug"`
+	Http   *HttpConfig   `json:"http"`
+	Mail   *MailConfig   `json:"mail"`
+	Sms    *SmsConfig    `json:"sms"`
+	Weixin *WeixinConfig `json:"weixin"`
 }
 
 var (

@@ -13,6 +13,12 @@
     },
     "sms" : {
         "enable": true,
-        "url" : "10.10.10.10:20230"
+        "url" : "10.10.11.64:20230"
+    },
+    "weixin" : {
+        "enable": true,
+        "url" : "https://qyapi.weixin.qq.com/cgi-bin",
+        "corpid": "",
+	    "secret": ""
     }
 }
