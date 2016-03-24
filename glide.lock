@@ -1,0 +1,18 @@
+hash: a60edddc5e14b8187e6bfc6a44d8f711386279c7fc7ab3b0544c2e412496ee2b
+updated: 2016-02-27T15:31:21.505845528+08:00
+imports:
+- name: github.com/soarpenguin/smsmail
+  version: f5b5c25447d17a204e0b2ee1984bc63224f33a59
+  subpackages:
+  - g
+  - http
+- name: github.com/toolkits/file
+  version: ab007cd1c33919068b9b9538b5b4be22d833c5f1
+- name: github.com/toolkits/smtp
+  version: 7cc935bc2ffa491bb44a5a84922208871b7ee605
+- name: github.com/toolkits/web
+  version: 80fa4a164ea03e1e5a83a26328b54ff74982c1f5
+  subpackages:
+  - param
+  - errors
+devImports: []
