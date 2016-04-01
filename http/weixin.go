@@ -22,16 +22,16 @@ type TokenResp struct {
 }
 
 type Text struct {
-	Content string
+	Content string `json:"content"`
 }
 
 type MessageBody struct {
-	ToUser  string
-	Toparty string
-	Msgtype string
-	Agentid int
-	Text    Text
-	Safe    string
+	ToUser  string `json:"touser"`
+	Toparty string `json:"toparty"`
+	Msgtype string `json:"msgtype"`
+	Agentid string `json:"agentid"`
+	Text    Text   `json:"text"`
+	Safe    string `json:"safe"`
 }
 
 func WeixinGetToken(corpid, secret string) (gtoken string, err error) {
@@ -63,7 +63,7 @@ func WeixinSendMsg(gtoken, content string) error {
 		ToUser:  "@all",
 		Toparty: "2",
 		Msgtype: "text",
-		Agentid: 1,
+		Agentid: "1",
 		Text: Text{
 			Content: content,
 		},
@@ -73,12 +73,16 @@ func WeixinSendMsg(gtoken, content string) error {
 	mJson, _ := json.Marshal(m)
 	contentReader := bytes.NewReader(mJson)
 	addr := fmt.Sprintf("%s/message/send?access_token=%s", cfg.Weixin.Url, gtoken)
+	//fmt.Printf("%v\n", addr)
 
 	req, _ := http.NewRequest("POST", addr, contentReader)
 	req.Header.Set("Content-Type", "application/json")
 	client := &http.Client{}
-	ret, err := client.Do(req)
-	fmt.Printf("%v", ret)
+	resp, err := client.Do(req)
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	debugInfo(cfg.Debug, string(body))
 
 	return err
 }

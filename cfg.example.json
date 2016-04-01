@@ -19,6 +19,6 @@
         "enable": true,
         "url" : "https://qyapi.weixin.qq.com/cgi-bin",
         "corpid": "",
-	    "secret": ""
+        "secret": ""
     }
 }
