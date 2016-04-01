@@ -26,10 +26,13 @@ type SmsConfig struct {
 }
 
 type WeixinConfig struct {
-	Enable bool   `json:"enable"`
-	Url    string `json:"url"`
-	CorpID string `json:"corpid"`
-	Secret string `json:"secret"`
+	Enable  bool           `json:"enable"`
+	Url     string         `json:"url"`
+	Agentid string         `json:"agentid"`
+	CorpID  string         `json:"corpid"`
+	Secret  string         `json:"secret"`
+	Partys  map[string]int `json:"partys"`
+	Tags    map[string]int `json:"tags"`
 }
 
 type GlobalConfig struct {

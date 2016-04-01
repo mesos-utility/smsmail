@@ -2,7 +2,7 @@
     "debug": true,
     "http": {
         "enable": true,
-        "listen": "0.0.0.0:1986"
+        "listen": "0.0.0.0:1987"
     },
     "mail" : {
         "enable": true,
@@ -18,7 +18,15 @@
     "weixin" : {
         "enable": true,
         "url" : "https://qyapi.weixin.qq.com/cgi-bin",
+        "agentid": "1",
         "corpid": "",
-        "secret": ""
+        "secret": "",
+        "partys": {
+            "op_nana": 2,
+            "op_mana":  3
+        },
+        "tags": {
+            "op_duty": 1
+        }
     }
 }

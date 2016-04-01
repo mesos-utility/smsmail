@@ -23,6 +23,7 @@ type Text struct {
 type MessageBody struct {
 	ToUser  string `json:"touser"`
 	Toparty string `json:"toparty"`
+	Totag   string `json:"totag"`
 	Msgtype string `json:"msgtype"`
 	Agentid string `json:"agentid"`
 	Text    Text   `json:"text"`
@@ -55,10 +56,11 @@ func WeixinGetToken(corpid, secret string) (gtoken string, err error) {
 func WeixinSendMsg(gtoken, content string) error {
 	cfg := g.Config()
 	m := &MessageBody{
-		ToUser:  "@all",
-		Toparty: "2",
+		ToUser:  "",
+		Toparty: "3",
+		Totag:   "",
 		Msgtype: "text",
-		Agentid: "1",
+		Agentid: cfg.Weixin.Agentid,
 		Text: Text{
 			Content: content,
 		},
