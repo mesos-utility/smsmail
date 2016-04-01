@@ -11,11 +11,6 @@ import (
 	"github.com/toolkits/web/param"
 )
 
-const (
-	corpID = "wxe37ef29953de7a95"
-	secret = "6uu5EX4XPe3dOK75S7iU0ipThR-wSPhNDdXGhtLnDX8RNQwUpNcSuvKWeAqasEjD"
-)
-
 type TokenResp struct {
 	AccessToken string `json:"access_token"`
 	Expires     int    `json:"expires_in"`
