@@ -1,11 +1,8 @@
 package: .
 import:
-- package: github.com/soarpenguin/smsmail
-  subpackages:
-  - g
-  - http
 - package: github.com/toolkits/file
 - package: github.com/toolkits/smtp
 - package: github.com/toolkits/web
   subpackages:
   - param
+- package: github.com/axgle/mahonia

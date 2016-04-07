@@ -1,17 +1,14 @@
-hash: a60edddc5e14b8187e6bfc6a44d8f711386279c7fc7ab3b0544c2e412496ee2b
-updated: 2016-02-27T15:31:21.505845528+08:00
+hash: 31d40544c0e312ad59d89951502fc0cc45cb6d6da42abb138234286ab8a3b7f7
+updated: 2016-04-07T16:29:59.279522845+08:00
 imports:
-- name: github.com/soarpenguin/smsmail
-  version: f5b5c25447d17a204e0b2ee1984bc63224f33a59
-  subpackages:
-  - g
-  - http
+- name: github.com/axgle/mahonia
+  version: c528b747d92d41ca581a7acf3e604c396fc7c034
 - name: github.com/toolkits/file
-  version: ab007cd1c33919068b9b9538b5b4be22d833c5f1
+  version: a5b3c5147e07f934d9f9d00b901a20b2529f1a57
 - name: github.com/toolkits/smtp
   version: 7cc935bc2ffa491bb44a5a84922208871b7ee605
 - name: github.com/toolkits/web
-  version: 80fa4a164ea03e1e5a83a26328b54ff74982c1f5
+  version: dc0f03327e1d58851ef88fca6e8008ffb6de806a
   subpackages:
   - param
   - errors

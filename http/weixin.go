@@ -7,8 +7,10 @@ import (
 	"io/ioutil"
 	"net/http"
 
+	"github.com/axgle/mahonia"
 	"github.com/soarpenguin/smsmail/g"
 	"github.com/toolkits/web/param"
+	//"golang.org/x/text/encoding"
 )
 
 type TokenResp struct {
@@ -105,9 +107,14 @@ func WeixinMessageDeal(w http.ResponseWriter, r *http.Request) {
 	//tos := param.MustString(r, "tos")
 	content := param.MustString(r, "content")
 
+	enc := mahonia.NewEncoder("UTF-8")
+	utfcontent := enc.ConvertString(content)
+	//var enc encoding.Decoder
+	//utfcontent, err := enc.String(content)
+
 	gtoken, _ := WeixinGetToken(cfg.Weixin.CorpID, cfg.Weixin.Secret)
 
-	err := WeixinSendMsg(gtoken, content)
+	err := WeixinSendMsg(gtoken, utfcontent)
 	if err != nil {
 		debugInfo(cfg.Debug, "Send Weixin msg failed!!!")
 		//http.Error(w, err.Error(), http.StatusInternalServerError)
