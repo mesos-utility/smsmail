@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/soarpenguin/smsmail/g"
-	"github.com/soarpenguin/smsmail/http"
+	"github.com/mesos-utility/smsmail/g"
+	"github.com/mesos-utility/smsmail/http"
 )
 
 func main() {

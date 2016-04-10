@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/soarpenguin/smsmail/g"
+	"github.com/mesos-utility/smsmail/g"
 	//"github.com/toolkits/web/param"
 )
 

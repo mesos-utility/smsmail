@@ -18,7 +18,7 @@ smsmail:短信/邮件发送接口
 
 2. 测试： ./control build && ./control start    OR
  * glide create                            # Start a new workspace
- * glide get github.com/soarpenguin/smsmail # Get a package and add to glide.yaml
+ * glide get github.com/mesos-utility/smsmail # Get a package and add to glide.yaml
  * glide install                           # Install packages and dependencies
  * go build                                # Go tools work normally
  * glide up                                # Update to newest versions of the package

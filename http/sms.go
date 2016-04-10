@@ -6,7 +6,7 @@ import (
 	"net"
 	"net/http"
 
-	"github.com/soarpenguin/smsmail/g"
+	"github.com/mesos-utility/smsmail/g"
 	"github.com/toolkits/web/param"
 )
 
