@@ -2,6 +2,7 @@ default: help
 
 ## Make bin for smsmail.
 bin:
+	go get ./...
 	./control build
 
 ## Get vet go tools.
