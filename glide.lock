@@ -1,12 +1,10 @@
-hash: 31d40544c0e312ad59d89951502fc0cc45cb6d6da42abb138234286ab8a3b7f7
-updated: 2016-04-07T16:29:59.279522845+08:00
+hash: e4fa6ee1dc5c45ea5f6292846b508a9438a1e8394dd9d0a03e845448325e8056
+updated: 2016-04-07T17:47:49.986959506+08:00
 imports:
-- name: github.com/axgle/mahonia
-  version: c528b747d92d41ca581a7acf3e604c396fc7c034
 - name: github.com/toolkits/file
-  version: a5b3c5147e07f934d9f9d00b901a20b2529f1a57
+  version: 365466cd91b2cd7c1804589f37f6d1b6543fe965
 - name: github.com/toolkits/smtp
-  version: 7cc935bc2ffa491bb44a5a84922208871b7ee605
+  version: 365466cd91b2cd7c1804589f37f6d1b6543fe965
 - name: github.com/toolkits/web
   version: dc0f03327e1d58851ef88fca6e8008ffb6de806a
   subpackages:

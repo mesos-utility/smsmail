@@ -7,15 +7,18 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/axgle/mahonia"
 	"github.com/soarpenguin/smsmail/g"
 	"github.com/toolkits/web/param"
-	//"golang.org/x/text/encoding"
 )
 
 type TokenResp struct {
 	AccessToken string `json:"access_token"`
 	Expires     int    `json:"expires_in"`
+}
+
+type MsgResp struct {
+	Errcode float64 `json:"errcode"`
+	Errmsg  string  `json:"errmsg"`
 }
 
 type Text struct {
@@ -39,7 +42,7 @@ func WeixinGetToken(corpid, secret string) (gtoken string, err error) {
 	gurl := fmt.Sprintf("%s/gettoken?corpid=%s&corpsecret=%s", cfg.Weixin.Url, corpid, secret)
 
 	r, err := http.Get(gurl)
-	if err != nil {
+	if err != nil || r.StatusCode != http.StatusOK {
 		return "", err
 	}
 	defer r.Body.Close()
@@ -56,6 +59,8 @@ func WeixinGetToken(corpid, secret string) (gtoken string, err error) {
 }
 
 func WeixinSendMsg(gtoken, content string) error {
+	var msgresp MsgResp
+
 	cfg := g.Config()
 	m := &MessageBody{
 		ToUser:  "",
@@ -69,19 +74,25 @@ func WeixinSendMsg(gtoken, content string) error {
 		Safe: "0",
 	}
 
-	mJson, _ := json.Marshal(m)
+	mJson, _ := json.MarshalIndent(m, " ", "  ")
 	contentReader := bytes.NewReader(mJson)
 	addr := fmt.Sprintf("%s/message/send?access_token=%s", cfg.Weixin.Url, gtoken)
 	//fmt.Printf("%v\n", addr)
 
 	req, _ := http.NewRequest("POST", addr, contentReader)
-	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Content-Type", "application/json; encoding=utf-8")
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	defer resp.Body.Close()
 
 	body, err := ioutil.ReadAll(resp.Body)
-	debugInfo(cfg.Debug, string(body))
+	json.Unmarshal(body, &msgresp)
+
+	if msgresp.Errcode != 0 {
+		debugInfo(cfg.Debug, string(body))
+
+		return fmt.Errorf(msgresp.Errmsg)
+	}
 
 	return err
 }
@@ -107,14 +118,9 @@ func WeixinMessageDeal(w http.ResponseWriter, r *http.Request) {
 	//tos := param.MustString(r, "tos")
 	content := param.MustString(r, "content")
 
-	enc := mahonia.NewEncoder("UTF-8")
-	utfcontent := enc.ConvertString(content)
-	//var enc encoding.Decoder
-	//utfcontent, err := enc.String(content)
-
 	gtoken, _ := WeixinGetToken(cfg.Weixin.CorpID, cfg.Weixin.Secret)
 
-	err := WeixinSendMsg(gtoken, utfcontent)
+	err := WeixinSendMsg(gtoken, content)
 	if err != nil {
 		debugInfo(cfg.Debug, "Send Weixin msg failed!!!")
 		//http.Error(w, err.Error(), http.StatusInternalServerError)
