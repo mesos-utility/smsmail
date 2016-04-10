@@ -1,5 +1,6 @@
 smsmail:短信/邮件发送接口
 ================================
+[![Build Status](https://travis-ci.org/mesos-utility/smsmail.png?branch=master)](https://travis-ci.org/mesos-utility/smsmail)
 
 系统需求
 --------------------------------
