@@ -10,9 +10,9 @@ vet:
 	go get golang.org/x/tools/cmd/vet
 
 ## Validate this go project.
-validate: vet
+validate:
 	bash script/validate-gofmt
-	go list ./... | grep -v 'vendor' | xargs -L1 go vet
+#	go list ./... | grep -v 'vendor' | xargs -L1 go vet
 
 ## Run golint for this go project.
 #lint:

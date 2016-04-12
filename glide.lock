@@ -1,10 +1,10 @@
 hash: e4fa6ee1dc5c45ea5f6292846b508a9438a1e8394dd9d0a03e845448325e8056
-updated: 2016-04-07T17:47:49.986959506+08:00
+updated: 2016-04-12T14:49:00.664589474+08:00
 imports:
 - name: github.com/toolkits/file
-  version: 365466cd91b2cd7c1804589f37f6d1b6543fe965
+  version: a5b3c5147e07f934d9f9d00b901a20b2529f1a57
 - name: github.com/toolkits/smtp
-  version: 365466cd91b2cd7c1804589f37f6d1b6543fe965
+  version: 7cc935bc2ffa491bb44a5a84922208871b7ee605
 - name: github.com/toolkits/web
   version: dc0f03327e1d58851ef88fca6e8008ffb6de806a
   subpackages:
